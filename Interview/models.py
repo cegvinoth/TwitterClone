@@ -13,14 +13,9 @@ class follow(models.Model):
 	  following_id=models.IntegerField()
 	  created=models.DateTimeField(auto_now_add=True)
 
-class notifications(models.Model):
-	  notify_type=models.CharField(max_length=50)
-	  notify_createdby=models.IntegerField()
-	  notify_post_id=models.IntegerField()
-
 class userposts(models.Model):
 	  post_data=models.CharField(max_length=1000)
-	  user_id=models.IntegerField()
+	  user_id=models.ForeignKey(users)
 	  created=models.DateTimeField(auto_now_add=True)
 
 

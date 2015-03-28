@@ -3,6 +3,12 @@
 <body>
 	Hello {{ firstname }}
 	<br>
+	<form method="POST" action="/follow">
+		<input type="hidden" name="pageid" value="{{ pageid }}">
+		{% autoescape off%}
+		{{ followcode }}
+		{% endautoescape %}
+	</form>
 	<form method="POST" action="/posts">
 		Status Update:
         <input type="text" name="postdata" style="width:300px;height:30px;">
@@ -16,6 +22,8 @@
 	 {{ post.post_data }}
 	 <br>
 	{% endfor %}
+	<a href="notifications">Notifications </a>
+	<br>
 	<a href="/logout">Logout</a>
 </body>
 </html>

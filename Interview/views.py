@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from Interview.models import users,userposts,notifications,follow
+from Interview.models import users,userposts,follow
 from django.template import Context,loader
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -60,11 +60,19 @@ def login(request):
 def profile(request):
 	if request.session.get('fname',False):
 	   name=request.session['fname']
-	   userid=request.session['id']
-	   pageid=request.GET['id']
+	   userid=int(request.session['id'])
+	   pageid=int(request.GET['id'])
+	   followcode=""
+	   if userid != pageid:
+		 try:
+		  followdata=follow.objects.get(user_id_id=userid,following_id=pageid)
+		  if followdata.id:
+			followcode="<input type='submit' name='unfollow' value='unfollow'>"
+		 except ObjectDoesNotExist:
+			followcode="<input type='submit' name='follow' value='follow'>"
 	   page=loader.get_template('home.html')
 	   resultset=userposts.objects.filter(user_id=pageid).order_by('-created')
-	   context=Context({'firstname':name,'resultset':resultset},)
+	   context=Context({'firstname':name,'resultset':resultset,'pageid':pageid,'followcode':followcode},)
 	   return HttpResponse(page.render(context))
 	else:
 	   return HttpResponseRedirect('/')
@@ -78,9 +86,33 @@ def postupdate(request):
 	if request.session.get('fname',False):
 	   data=request.POST['postdata']
 	   userid=request.session['id']	
-	   postupdate=userposts(post_data=data,user_id=userid)
+	   postupdate=userposts(post_data=data,user_id_id=userid)
 	   postupdate.save()
 	   return HttpResponseRedirect('/')
 	else:
 	   return HttpResponseRedirect('/')
+
+@csrf_exempt
+def followuser(request):
+	pageid=request.POST['pageid']
+	userid=request.session['id']
+	if request.POST.get('follow',False):
+	   followquery=follow(user_id_id=userid,following_id=pageid)
+	   followquery.save()
+	elif request.POST.get('unfollow',False):
+	   followquery=follow.objects.filter(user_id_id=userid,following_id=pageid)
+	   followquery.delete()
+	return HttpResponseRedirect('/profile?id='+pageid)
+
+def notifications(request):
+	if request.session.get('fname',False):
+	   userid=request.session['id']
+	   followdata=follow.objects.filter(user_id_id=userid).values('following_id')
+	   postdata=userposts.objects.filter(user_id__in=followdata).order_by('-created')
+	   page=loader.get_template("notifications.html")
+	   context=Context({'postdata':postdata},)
+	   return HttpResponse(page.render(context))
+	else:
+	  return HttpResponseRedirect('/')
+
 

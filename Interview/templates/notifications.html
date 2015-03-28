@@ -1,0 +1,11 @@
+<html>
+<title>Notifications</title>
+<body>
+	{% for post in postdata %}
+	   <b>{{ post.user_id.firstname }} posted an update as </b><code>{{ post.post_data }} </code>
+	   <br>
+	{% endfor %}
+	<br>
+	<a href="/"> Profile </a>
+</body>
+</html>
