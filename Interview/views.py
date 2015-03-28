@@ -47,11 +47,13 @@ def login(request):
 			request.session['id']=register.id
 			return HttpResponseRedirect('/home')
 		 except Exception as e:
-			return HttpResponseRedirect('/')
+		 	return HttpResponse(e)
+			#return HttpResponseRedirect('/')
 	  else:
 		  return HttpResponseRedirect('/')
 	except Exception as e:
-	  return HttpResponseRedirect('/')
+	  return HttpResponse(e)
+	  #return HttpResponseRedirect('/')
 
 def home(request):
 	if request.session.get('uname',False):
