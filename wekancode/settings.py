@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'wekancode.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'interview',
+        'NAME':'Interview',
         'USER':'root',
         'PASSWORD':'',
         'HOST':'localhost',

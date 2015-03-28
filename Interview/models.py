@@ -18,9 +18,9 @@ class notifications(models.Model):
 	  notify_createdby=models.IntegerField()
 	  notify_post_id=models.IntegerField()
 
-class post(models.Model):
+class userposts(models.Model):
 	  post_data=models.CharField(max_length=1000)
-	  user_id=models.ForeignKey(users)
+	  user_id=models.IntegerField()
 	  created=models.DateTimeField(auto_now_add=True)
 
 

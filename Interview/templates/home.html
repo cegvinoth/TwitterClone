@@ -1,0 +1,21 @@
+<html>
+<title>Home</title>
+<body>
+	Hello {{ firstname }}
+	<br>
+	<form method="POST" action="/posts">
+		Status Update:
+        <input type="text" name="postdata" style="width:300px;height:30px;">
+        <br>
+        <input type="submit" name="postupdate" value="update">
+	</form>
+	<br>
+	Updates:
+	<br>
+	{% for post in resultset %}
+	 {{ post.post_data }}
+	 <br>
+	{% endfor %}
+	<a href="/logout">Logout</a>
+</body>
+</html>
