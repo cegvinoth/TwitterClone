@@ -1,0 +1,11 @@
+<html>
+<title>Search</title>
+<body>
+	{% for user in searchdata %}
+	   <a href="/profile?id={{ user.id }}">{{ user.firstname}} {{ user.lastname }}</a>
+	   <br>
+	{% endfor %}
+	<br>
+	<a href="/"> Profile </a>
+</body>
+</html>

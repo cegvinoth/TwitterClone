@@ -16,6 +16,12 @@
         <input type="submit" name="postupdate" value="update">
 	</form>
 	<br>
+	<form method="GET" action="/search">
+		Search User:
+        <input type="text" name="query" style="width:300px;height:30px;">
+        <br>
+        <input type="submit" name="search" value="search">
+	</form>
 	Updates:
 	<br>
 	{% for post in resultset %}

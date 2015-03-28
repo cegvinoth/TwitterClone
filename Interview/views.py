@@ -115,4 +115,14 @@ def notifications(request):
 	else:
 	  return HttpResponseRedirect('/')
 
+def search(request):
+	if request.session.get('fname',False):
+	   query=request.GET['query']
+	   searchdata=users.objects.filter(firstname__icontains=query) | users.objects.filter(lastname__icontains=query)
+	   page=loader.get_template("search.html")
+	   context=Context({'searchdata':searchdata},)
+	   return HttpResponse(page.render(context))
+	else:
+	  return HttpResponseRedirect('/')
+
 
