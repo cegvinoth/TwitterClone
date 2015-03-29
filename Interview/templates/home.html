@@ -1,35 +1,51 @@
 <html>
+<head>
 <title>Home</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
 <body>
-	Hello {{ firstname }}
-	<br>
-	<form method="POST" action="/follow">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">WeKanCode</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/notifications">Notifications</a></li>
+        <li> <a href="/">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+        <div>
+        <form class="navbar-form" action="/search" method="get">
+        <div class="input-group col-md-8">
+            <input type="text" class="form-control" placeholder="Search Users..." name="query">
+        </div>
+        </form>
+        </div>
+  </div>
+</nav>
+
+<div class="container">
+	    <h2>{{ userdata.firstname }}'s profile</h2>   
+	    <form method="POST" action="/follow">
 		<input type="hidden" name="pageid" value="{{ pageid }}">
 		{% autoescape off%}
 		{{ followcode }}
 		{% endautoescape %}
 	</form>
-	<form method="POST" action="/posts">
-		Status Update:
-        <input type="text" name="postdata" style="width:300px;height:30px;">
-        <br>
-        <input type="submit" name="postupdate" value="update">
-	</form>
-	<br>
-	<form method="GET" action="/search">
-		Search User:
-        <input type="text" name="query" style="width:300px;height:30px;">
-        <br>
-        <input type="submit" name="search" value="search">
-	</form>
-	Updates:
-	<br>
+       {% autoescape off%}
+		{{ statuscode }}
+		{% endautoescape %}
+<h3> Updates </h3>
 	{% for post in resultset %}
+	<div class="jumbotron">
 	 {{ post.post_data }}
-	 <br>
+     </div>
 	{% endfor %}
-	<a href="notifications">Notifications </a>
-	<br>
-	<a href="/logout">Logout</a>
+
+</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

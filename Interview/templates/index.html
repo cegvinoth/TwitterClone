@@ -1,29 +1,64 @@
 <html>
 <head>
 <title>WeKanCode</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<style>
+.centerdiv{
+	  max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+}
+</style>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">WeKanCode</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<div class="centerdiv">
 <h4>LOGIN </h4>
 <form method=post action="/login" >
-Username:<input type=text name=uname1 />
-<br>
-Password:<input type=password name=pword1 />
-<br>
-<input type=submit name=login value=login />
+<div class="form-group">
+<label>Username: </label>
+<input class="form-control" type=text name=uname1 />
+</div>
+<div class="form-group">
+<label>Password:</label>
+<input type=password class="form-control" name=pword1 />
+</div>
+<input type=submit class="btn btn-default" name=login value=login />
 </form>
 <h4> Register </h4>
 <form method=post action="/login" >
-UserName : <input type=text name=uname />
-<br>
-First Name : <input type=text name=fname />
-<br>
-Last Name : <input type=text name=lname />
-<br>
-Email ID : <input type=text name=email />
-<br>
-Password : <input type=password name=pword />
-<br>
-<input type=submit name=register value=register />
+<div class="form-group">
+<label>UserName: </label>
+<input type=text class="form-control" name=uname />
+</div>
+<div class="form-group">
+<label>FirstName:</label>
+<input type=text class="form-control" name=fname />
+</div>
+<div class="form-group">
+<label>LastName:</label>
+<input type=text class="form-control" name=lname />
+</div>
+<div class="form-group">
+<label>Email:</label>
+<input type=text class="form-control" name=email />
+</div>
+<div class="form-group">
+<label>Password:</label>
+<input type=password class="form-control" name=pword />
+</div>
+<input type=submit name=register class="btn btn-default" value=register />
 </form>
+</div>
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

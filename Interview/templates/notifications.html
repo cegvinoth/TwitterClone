@@ -1,11 +1,37 @@
 <html>
 <title>Notifications</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
 <body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">WeKanCode</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="/notifications">Notifications</a></li>
+        <li> <a href="/">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+        <div>
+        <form class="navbar-form" action="/search" method="get">
+        <div class="input-group col-md-8">
+            <input type="text" class="form-control" placeholder="Search Users..." name="query">
+        </div>
+        </form>
+        </div>
+  </div>
+</nav>
+<div class="container">
 	{% for post in postdata %}
-	   <b>{{ post.user_id.firstname }} posted an update as </b><code>{{ post.post_data }} </code>
-	   <br>
+	<div class="jumbotron">
+	  <b>{{ post.user_id.firstname }} </b> posted an update as <code>{{ post.post_data }} </code>
+	</div>
 	{% endfor %}
-	<br>
-	<a href="/"> Profile </a>
+</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>

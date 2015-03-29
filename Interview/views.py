@@ -62,17 +62,21 @@ def profile(request):
 	   name=request.session['fname']
 	   userid=int(request.session['id'])
 	   pageid=int(request.GET['id'])
+	   userdata=users.objects.get(id=pageid)
 	   followcode=""
+	   statuscode=""
+	   if userid == pageid:
+	   	  statuscode='<div class="jumbotron"> <form method="POST" action="/posts"><label>Status Update:</label><textarea name="postdata" class="form-control" > </textarea><input type="submit" name="postupdate" class="btn btn-defaut" value="update"></form></div>'
 	   if userid != pageid:
 		 try:
 		  followdata=follow.objects.get(user_id_id=userid,following_id=pageid)
 		  if followdata.id:
-			followcode="<input type='submit' name='unfollow' value='unfollow'>"
+			followcode="<input type='submit' name='unfollow' class='btn btn-default' value='unfollow'>"
 		 except ObjectDoesNotExist:
-			followcode="<input type='submit' name='follow' value='follow'>"
+			followcode="<input type='submit' name='follow' class='btn btn-default' value='follow'>"
 	   page=loader.get_template('home.html')
 	   resultset=userposts.objects.filter(user_id=pageid).order_by('-created')
-	   context=Context({'firstname':name,'resultset':resultset,'pageid':pageid,'followcode':followcode},)
+	   context=Context({'firstname':name,'resultset':resultset,'pageid':pageid,'followcode':followcode,'userdata':userdata,'statuscode':statuscode},)
 	   return HttpResponse(page.render(context))
 	else:
 	   return HttpResponseRedirect('/')
