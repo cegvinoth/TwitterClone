@@ -48,16 +48,17 @@ def login(request):
 			request.session['id']=register.id
 			return HttpResponseRedirect('/profile?id='+str(register.id))
 		 except Exception as e:
-			return HttpResponse(e)
-			#return HttpResponseRedirect('/')
+			#return HttpResponse(e)
+			return HttpResponseRedirect('/')
 	  else:
 		  return HttpResponseRedirect('/')
 	except Exception as e:
-	  return HttpResponse(e)
-	  #return HttpResponseRedirect('/')
+	  #return HttpResponse(e)
+	  return HttpResponseRedirect('/')
 
 @csrf_exempt
 def profile(request):
+  try:
 	if request.session.get('fname',False):
 	   name=request.session['fname']
 	   userid=int(request.session['id'])
@@ -66,7 +67,7 @@ def profile(request):
 	   followcode=""
 	   statuscode=""
 	   if userid == pageid:
-	   	  statuscode='<div class="jumbotron"> <form method="POST" action="/posts"><label>Status Update:</label><textarea name="postdata" class="form-control" > </textarea><input type="submit" name="postupdate" class="btn btn-defaut" value="update"></form></div>'
+		  statuscode='<div class="jumbotron"> <form method="POST" action="/posts"><label>Status Update:</label><textarea name="postdata" class="form-control" > </textarea><input type="submit" name="postupdate" class="btn btn-defaut" value="update"></form></div>'
 	   if userid != pageid:
 		 try:
 		  followdata=follow.objects.get(user_id_id=userid,following_id=pageid)
@@ -80,6 +81,8 @@ def profile(request):
 	   return HttpResponse(page.render(context))
 	else:
 	   return HttpResponseRedirect('/')
+  except Exception as e:
+	  return HttpResponseRedirect('/')
 
 def logout(request):
 	request.session.flush()
